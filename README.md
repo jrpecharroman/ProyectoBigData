@@ -31,19 +31,29 @@ El repositorio del proyecto consta de las siguientes carpetas:
 	- el Notebook de análisis conjunto, 
 	- los ficheros CSV de salida para el modelado.
 	- los Notebooks con los modelados
-	- los Notebooks con el análisis de los datos para 2018-2019 y para 2020
 	- ficheros SAV con los modelos entrenados.
 
-- **Predicciones_sobre_2020**: Unión de los datos anteriores y análisis conjunto en Madrid y Barcelona. Contiene dos subcarpetas para Madrid y Barcelona con:
-	- el Notebook de análisis conjunto, 
-	- los ficheros CSV de salida para el modelado.
-	- los Notebooks con los modelados
-	- los Notebooks con el análisis de los datos para 2018-2019 y para 2020
-	- ficheros SAV con los modelos entrenados.
-	
-	
-	
-Area meteo: 
-conectarse a la Api de AEMET para tratar los datos de metereologia relevantes para el proyecto
-Se utiliza la siguiente libreria python https://github.com/pablo-moreno/python-aemet
- 
+- **Predicciones_sobre_2020**: Aplicación de los modelos obtenidos en la predicción sobre datos del 2020. Contiene:
+	- los Notebooks con las predicciones
+
+
+## Instalación
+
+Para el desarrollo del proyecto se ha usado **Python 3.8** sobre Anaconda 3
+
+Puede usar el gestor de paquetes [pip](https://pip.pypa.io/en/stable/) para instalar las librerías necesarias.
+
+```bash
+pip install numpy
+pip install pandas
+pip install matplotlib
+pip install scipy
+pip install scikit-learn
+pip install joblib
+```
+
+## Uso
+
+Para el desarrollo del proyecto deberán ejecutarse los Notebooks en el orden especificado en el apartado de Contenido. 
+
+Puede ejecutarse de forma independiente todo lo relacionado con Madrid y todo lo relacionado con Barcelona.
