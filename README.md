@@ -61,7 +61,7 @@ Para el desarrollo del proyecto deberán ejecutarse los Notebooks en el orden es
 Puede ejecutarse de forma independiente todo lo relacionado con Madrid y todo lo relacionado con Barcelona.
 
 ## Visualizaciones
-
+Para el apartado de visualizaciones se ha desarrollado una aplicación en Qlik Sense.
 Para desplegar la aplicacion AirQ - Madrid y Barcelona ciudad primero es necesario importar los zips incluidos en la carpeta del repositorio ProyectoBigData\visualizaciones qlik\Extensions\ en el apartado extensions del servidor qlik o bien guardarlos en la carpeta extensions de la instalación de Qlik Sense desktop. 
 Habitualmente C:\Users\[usuario]\Documents\Qlik\Sense\Extensions
 
