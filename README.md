@@ -68,7 +68,8 @@ Habitualmente C:\Users\[usuario]\Documents\Qlik\Sense\Extensions
 Es necesario importar la aplicación (AirQ - Madrid y Barcelona Ciudad.qvf. Podran encontrar el archivo en la carpeta de repositorio ProyectoBigData\visualizaciones qlik\ en el apartado en Apps del servidor Qlik o bien guardarlos en la carpeta Apps de la instalación de Qlik sense desktop. 
 Habitualmente C:\Users\[usuario]\Documents\Qlik\Sense\Apps
 
-La App AirQ fue diseñada con Qlik Sense desktop September 2020 y es possible que algunos botones del dashboard de introducción necesitan objetos de esta versión, alternativamente se puede desplegar en una versión anterior y utilizar los botones incluidos como extensión en el qlik sense dashboard bundle. 
+La App AirQ fue diseñada con Qlik Sense desktop September 2020 y es possible que algunos botones del dashboard de introducción necesitan objetos de esta versión, alternativamente se puede desplegar en una versión anterior y utilizar los botones incluidos como extensión en el qlik sense dashboard bundle.
+
 ![imagen](https://user-images.githubusercontent.com/74833588/110533306-208c4e00-811e-11eb-9d79-839e0e3e5342.png)
 
 Si fuera el caso los 4 botones de navegación a sustituir son los siguientes: 
