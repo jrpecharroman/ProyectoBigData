@@ -64,7 +64,8 @@ Puede ejecutarse de forma independiente todo lo relacionado con Madrid y todo lo
 App AirQ diseñada con Qlik Sense desktop September 2020.
 Algunos botones del dashboard de introducción necesitan objetos de esta versión, alternativamente se puede desplegar en una versión anterior y utilizar los botones incluidos como extensión en el qlik sense dashboard bundle. 
 ![imagen](https://user-images.githubusercontent.com/74833588/110533306-208c4e00-811e-11eb-9d79-839e0e3e5342.png)
-Los 4 botones de navegación a substituir 
+
+Si fuera el caso los 4 botones de navegación a sustituir son los siguientes: 
 	-Analisis conjunto = id hoja = 54fd9c26-c153-4ba6-97db-ac2dfe4ffb62
 	-Mapa = id hoja = c6f9e8a4-7a1f-412d-98e7-d6bf55fd5034
 	-Estado actual por ciudad = id hoja = 994185d4-a366-467a-80b3-2cd4b7bc5ebe
