@@ -38,7 +38,7 @@ El repositorio del proyecto consta de las siguientes carpetas:
 
 - **Predicciones_sobre_2020**: Aplicación de los modelos obtenidos en la predicción sobre datos del 2020. Contiene:
 	- los Notebooks con las predicciones
-	- 
+	
 - **Visualizaciones Qlik**: Archivos necesarios para la poder instalar la aplicación de BI diseñada para el proyecto basada en Qlik Sense:
 	- AirQ - Madrid y Barcelona Ciudad.qvf
 	- Carpeta con las extensiones necesarias a instalar.
@@ -49,7 +49,7 @@ El repositorio del proyecto consta de las siguientes carpetas:
 
 - **Recursos**: Contiene algunos recursos externos utilizados en el proyecto:
 	- Acceso a [diagrama de las fuentes y tecnologias utilizadas en el proyecto ](https://app.terrastruct.com/diagrams/780713555)
-	- Copia [librería aemet para python] (https://github.com/pablo-moreno/python-aemet)
+	- Copia [librería aemet para python](https://github.com/pablo-moreno/python-aemet)
 	- Acceso a diagrama de las fuentes y tecnologías utilizadas en el proyecto.
 
 
@@ -177,22 +177,22 @@ Para el desarrollo del proyecto deberán ejecutarse los Notebooks en el siguient
 
 ## Visualizaciones
 
-- Para el apartado de visualizaciones se ha desarrollado una aplicación en Qlik Sense.
+- Para el apartado de visualizaciones se ha desarrollado una aplicación en Qlik Sense. Para desplegar la aplicación AirQ - Madrid y Barcelona ciudad será es necesario:
+	-**1**:Disponer de una instalacion Qlik Sense.
+	-**2**:Importar los zips incluidos en la carpeta del repositorio ProyectoBigData\visualizaciones qlik\Extensions\ en el apartado extensions del servidor qlik 
+		o bien guardarlos en la carpeta extensions si se trata de la instalación de Qlik Sense desktop. 
+		
+		Habitualmente C:\Users\[usuario]\Documents\Qlik\Sense\Extensions
 
-- Para desplegar la aplicacion AirQ - Madrid y Barcelona ciudad primero es necesario
+	-**3**:Es necesario importar la aplicación AirQ - Madrid y Barcelona Ciudad.qvf. Podran encontrar el archivo en la carpeta de repositorio 		ProyectoBigData\visualizaciones qlik\ en el apartado en Apps del servidor Qlik o bien guardarlo en la carpeta Apps si se dispone de una instalación de Qlik Sense Desktop. 
 
-1. Disponer de una instalacion Qlik Sense.
-2. Importar los zips incluidos en la carpeta del repositorio ProyectoBigData\visualizaciones qlik\Extensions\ en el apartado extensions del servidor qlik o bien guardarlos en la carpeta extensions si se trata de la instalación de Qlik Sense desktop. 
-Habitualmente C:\Users\[usuario]\Documents\Qlik\Sense\Extensions
+		Habitualmente C:\Users\[usuario]\Documents\Qlik\Sense\Apps
 
-3.Es necesario importar la aplicación AirQ - Madrid y Barcelona Ciudad.qvf. Podran encontrar el archivo en la carpeta de repositorio ProyectoBigData\visualizaciones qlik\ en el apartado en Apps del servidor Qlik o bien guardarlo en la carpeta Apps si se dispone de una instalación de Qlik Sense Desktop. 
-Habitualmente C:\Users\[usuario]\Documents\Qlik\Sense\Apps
+	-**4**: La App AirQ fue diseñada con Qlik Sense desktop September 2020 y es possible que algunos botones del dashboard de introducción necesitan objetos de esta versión, alternativamente se puede desplegar en una versión anterior y utilizar los botones incluidos como extensión en el qlik sense dashboard bundle.
 
-4. La App AirQ fue diseñada con Qlik Sense desktop September 2020 y es possible que algunos botones del dashboard de introducción necesitan objetos de esta versión, alternativamente se puede desplegar en una versión anterior y utilizar los botones incluidos como extensión en el qlik sense dashboard bundle.
+		![imagen](https://user-images.githubusercontent.com/74833588/110533306-208c4e00-811e-11eb-9d79-839e0e3e5342.png)
 
-![imagen](https://user-images.githubusercontent.com/74833588/110533306-208c4e00-811e-11eb-9d79-839e0e3e5342.png)
-
-   >Si fuera el caso los 4 botones de navegación a sustituir son los siguientes: 
+   	>Si fuera el caso los 4 botones de navegación a sustituir son los siguientes: 
 
 	   > Analisis conjunto = id hoja = 54fd9c26-c153-4ba6-97db-ac2dfe4ffb62
 	   > Mapa = id hoja = c6f9e8a4-7a1f-412d-98e7-d6bf55fd5034
