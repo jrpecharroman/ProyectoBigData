@@ -28,7 +28,7 @@ El repositorio del proyecto consta de las siguientes carpetas:
 	- los ficheros CSV de salida para la siguiente fase del proyecto.
 	- fichero CSV con los puntos de medida para ser usado por el software de visualización Qlik Sense.
 
-- **Datos_Mergeados**: Unión de los datos anteriores y análisis conjunto en Madrid y Barcelona. Contiene dos subcarpetas para Madrid y Barcelona con:
+- **AnalisisConjunto_Modelados**: Unión de los datos anteriores y análisis conjunto en Madrid y Barcelona. Obtención de modelos de predicción. Contiene dos subcarpetas para Madrid y Barcelona con:
 	- el Notebook de análisis conjunto, 
 	- los ficheros CSV de salida para el modelado.
 	- los Notebooks con los modelados
