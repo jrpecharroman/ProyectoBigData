@@ -180,11 +180,11 @@ Para el desarrollo del proyecto deberán ejecutarse los Notebooks en el siguient
 
 **1.** Disponer de una instalacion Qlik Sense.
 
-**2.** Importar los zips incluidos en la carpeta del repositorio ProyectoBigData\visualizaciones qlik\Extensions\ en el apartado extensions del servidor qlik o bien guardarlos en la carpeta "extension"s si se trata una instalación de Qlik Sense Desktop la cual habitualmente se ubica en la siguiente ruta:
+**2.** Importar los zips incluidos en la carpeta del repositorio ProyectoBigData\visualizaciones qlik\Extensions\ en el apartado extensions del servidor qlik o bien extraerlos como subcarpetas dentro de la carpeta "extensions" si se trata una instalación de Qlik Sense Desktop. La carpeta habitualmente se ubica en la siguiente ruta:
 		
 		C:\Users\[usuario]\Documents\Qlik\Sense\Extensions
 
-**3.** Es necesario importar la aplicación AirQ - Madrid y Barcelona Ciudad.qvf. Podran encontrar el archivo en la carpeta de repositorio 		ProyectoBigData\visualizaciones qlik\ en el apartado en Apps del servidor Qlik o bien guardarlo en la carpeta "Apps" si se dispone de una instalación de Qlik Sense Desktop Desktop la cual habitualmente se ubica en la siguiente ruta:. 
+**3.** Importar la aplicación AirQ - Madrid y Barcelona Ciudad.qvf ( archivo el cual podran encontrar en la carpeta del repositorio 		ProyectoBigData\visualizaciones qlik\ ) y moverlo en el apartado en Apps del servidor Qlik o bien guardarlo en la carpeta "Apps" si se dispone de una instalación de Qlik Sense Desktop Desktop la cual habitualmente se ubica en la siguiente ruta:. 
 
 		C:\Users\[usuario]\Documents\Qlik\Sense\Apps
 
