@@ -50,7 +50,6 @@ El repositorio del proyecto consta de las siguientes carpetas:
 - **Recursos**: Contiene algunos recursos externos utilizados en el proyecto:
 	- Acceso a [diagrama de las fuentes y tecnologias utilizadas en el proyecto ](https://app.terrastruct.com/diagrams/780713555)
 	- Copia [librería aemet para python](https://github.com/pablo-moreno/python-aemet)
-	- Acceso a diagrama de las fuentes y tecnologías utilizadas en el proyecto.
 
 
 ## Instalación
@@ -179,17 +178,17 @@ Para el desarrollo del proyecto deberán ejecutarse los Notebooks en el siguient
 
 - Para el apartado de visualizaciones se ha desarrollado una aplicación en Qlik Sense. Para desplegar la aplicación AirQ - Madrid y Barcelona ciudad será es necesario:
 
-**1**:Disponer de una instalacion Qlik Sense.
+**1.** Disponer de una instalacion Qlik Sense.
 
-**2**:Importar los zips incluidos en la carpeta del repositorio ProyectoBigData\visualizaciones qlik\Extensions\ en el apartado extensions del servidor qlik o bien guardarlos en la carpeta "extension"s si se trata una instalación de Qlik Sense Desktop la cual habitualmente se ubica en la siguiente ruta:
+**2.** Importar los zips incluidos en la carpeta del repositorio ProyectoBigData\visualizaciones qlik\Extensions\ en el apartado extensions del servidor qlik o bien guardarlos en la carpeta "extension"s si se trata una instalación de Qlik Sense Desktop la cual habitualmente se ubica en la siguiente ruta:
 		
 		C:\Users\[usuario]\Documents\Qlik\Sense\Extensions
 
-**3**:Es necesario importar la aplicación AirQ - Madrid y Barcelona Ciudad.qvf. Podran encontrar el archivo en la carpeta de repositorio 		ProyectoBigData\visualizaciones qlik\ en el apartado en Apps del servidor Qlik o bien guardarlo en la carpeta "App"s si se dispone de una instalación de Qlik Sense Desktop Desktop la cual habitualmente se ubica en la siguiente ruta:. 
+**3.** Es necesario importar la aplicación AirQ - Madrid y Barcelona Ciudad.qvf. Podran encontrar el archivo en la carpeta de repositorio 		ProyectoBigData\visualizaciones qlik\ en el apartado en Apps del servidor Qlik o bien guardarlo en la carpeta "App"s si se dispone de una instalación de Qlik Sense Desktop Desktop la cual habitualmente se ubica en la siguiente ruta:. 
 
 		C:\Users\[usuario]\Documents\Qlik\Sense\Apps
 
-**4**: La App AirQ fue diseñada con Qlik Sense desktop September 2020 y es possible que algunos botones del dashboard de introducción necesitan objetos de esta versión, alternativamente se puede desplegar en una versión anterior y utilizar los botones incluidos como extensión en el qlik sense dashboard bundle.
+**4.** La App AirQ fue diseñada con Qlik Sense desktop September 2020 y es possible que algunos botones del dashboard de introducción necesitan objetos de esta versión, alternativamente se puede desplegar en una versión anterior y utilizar los botones incluidos como extensión en el qlik sense dashboard bundle.
 
 ![imagen](https://user-images.githubusercontent.com/74833588/110533306-208c4e00-811e-11eb-9d79-839e0e3e5342.png)
 
