@@ -1,0 +1,729 @@
+//Scripts de carga de datos Qlik Sense App- AirQ-Madrid y Barcelona Ciudad
+
+//la libreria de datos llamada "datos" tiene que apuntar a la raiz del repositorio del proyecto
+
+//Sección main
+
+SET ThousandSep='.';
+SET DecimalSep=',';
+SET MoneyThousandSep='.';
+SET MoneyDecimalSep=',';
+SET MoneyFormat='#.##0,00 €;-#.##0,00 €';
+SET TimeFormat='h:mm:ss';
+SET DateFormat='D/M/YYYY';
+SET TimestampFormat='D/M/YYYY h:mm:ss[.fff]';
+SET FirstWeekDay=0;
+SET BrokenWeeks=0;
+SET ReferenceDay=4;
+SET FirstMonthOfYear=1;
+SET CollationLocale='es-ES';
+SET CreateSearchIndexOnReload=1;
+SET MonthNames='ene.;feb.;mar.;abr.;may.;jun.;jul.;ago.;sept.;oct.;nov.;dic.';
+SET LongMonthNames='enero;febrero;marzo;abril;mayo;junio;julio;agosto;septiembre;octubre;noviembre;diciembre';
+SET DayNames='lun.;mar.;mié.;jue.;vie.;sáb.;dom.';
+SET LongDayNames='lunes;martes;miércoles;jueves;viernes;sábado;domingo';
+SET NumericalAbbreviation='3:k;6:M;9:G;12:T;15:P;18:E;21:Z;24:Y;-3:m;-6:µ;-9:n;-12:p;-15:f;-18:a;-21:z;-24:y';
+
+//Sección Trafico_mad
+temp_Ubicaciones_mediciones_trafico:
+LOAD
+    num(Replace(id,'.',',')) as id,
+    tipo_elem,
+    distrito,
+    cod_cent,
+    nombre,
+    num(Replace(utm_x,'.',',')) as utm_x,
+    num(Replace(utm_y,'.',',')) as utm_y,
+    num(Replace(longitud,'.',',')) as longitud,
+    num(Replace(latitud,'.',',')) as latitud
+FROM [lib://datos/Tráfico/Madrid/qlik/202468-101-intensidad-trafico.csv]
+(txt, utf8, embedded labels, delimiter is ';', msq);
+
+MAP.tipo_elem:
+Mapping LOAD
+    id,
+    tipo_elem
+RESIDENT temp_Ubicaciones_mediciones_trafico;
+
+MAP.distrito:
+Mapping LOAD
+    id,
+    distrito
+RESIDENT temp_Ubicaciones_mediciones_trafico;
+
+MAP.cod_cent:
+Mapping LOAD
+    id,
+    cod_cent
+RESIDENT temp_Ubicaciones_mediciones_trafico;
+
+MAP.nombre:
+Mapping LOAD
+    id,
+    nombre
+RESIDENT temp_Ubicaciones_mediciones_trafico;
+
+MAP.utm_x:
+Mapping LOAD
+    id,
+    utm_x
+RESIDENT temp_Ubicaciones_mediciones_trafico;
+
+MAP.utm_y:
+Mapping LOAD
+    id,
+    utm_y
+RESIDENT temp_Ubicaciones_mediciones_trafico;
+
+MAP.longitud:
+Mapping LOAD
+    id,
+    longitud
+RESIDENT temp_Ubicaciones_mediciones_trafico;
+
+MAP.latitud:
+Mapping LOAD
+    id,
+    latitud
+RESIDENT temp_Ubicaciones_mediciones_trafico;
+
+temp_Trafico_madrid_18_19_20:
+LOAD 
+    num(Replace(id,'.',',')) as id,
+    fecha,
+    num(Replace(intensidad,'.',',')) as intensidad,
+    num(Replace(ocupacion,'.',',')) as ocupacion,
+    num(Replace(carga,'.',',')) as carga,
+    ApplyMap('MAP.tipo_elem',id,Null()) As tipo_elem,
+	ApplyMap('MAP.distrito',id,Null()) As distrito,
+	ApplyMap('MAP.cod_cent',id,Null()) As cod_cent,
+    ApplyMap('MAP.nombre',id,Null()) As nombre_medidor_trafico,
+	ApplyMap('MAP.utm_x',id,Null()) As utm_x,
+	ApplyMap('MAP.utm_y',id,Null()) As utm_y,
+	ApplyMap('MAP.longitud',id,Null()) As longitud,
+	ApplyMap('MAP.latitud',id,Null()) As latitud    
+    
+FROM [lib://datos/Tráfico/Madrid/qlik/trafico_mad_con_id_estaciones.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Trafico_madrid_18_19_20:
+LOAD
+	id,
+    if(IsNull(id),'Madrid','Madrid') as Ciudad_traficomad,
+    fecha,
+    intensidad,
+    ocupacion,
+   	carga,
+    tipo_elem,
+	distrito,
+	cod_cent,
+    nombre_medidor_trafico,
+	utm_x,
+	utm_y,
+	longitud,
+	latitud,
+	GeoMakePoint(latitud, longitud) as Localizacion_medidor_trafico_mad
+    
+    RESIDENT temp_Trafico_madrid_18_19_20
+WHERE not IsNull(tipo_elem);
+
+drop table temp_Ubicaciones_mediciones_trafico;
+drop table temp_Trafico_madrid_18_19_20;
+
+kml:
+LOAD
+    "208223-7605484-trafico-intensidad-tramas.Name",
+    "208223-7605484-trafico-intensidad-tramas.Point",
+    "208223-7605484-trafico-intensidad-tramas.Area",
+    "208223-7605484-trafico-intensidad-tramas.Line"
+FROM [lib://datos/Tráfico/Madrid/qlik/208223-7605484-trafico-intensidad-tramas.kml]
+(kml, Table is [INTENSIDADES.kml]);
+kml_polig:
+LOAD
+    "208223-7605492-trafico-intensidad-tramas.Name",
+    "208223-7605492-trafico-intensidad-tramas.Point",
+    "208223-7605492-trafico-intensidad-tramas.Area",
+    "208223-7605492-trafico-intensidad-tramas.Line"
+FROM [lib://datos/Tráfico/Madrid/qlik/208223-7605492-trafico-intensidad-tramas.kml]
+(kml, Table is [INTENSIDADES_POLIG.kml]);
+
+
+
+
+//Sección trafico_bcn
+
+Temp_Relacion_Tramos_formato_largo:
+LOAD
+    Tram as id_Tramo,
+    Tram_Components,
+    Descripció as Descripcion_Tramos_Bcn,
+	Replace(Descripció,')',' ') as DescripcioSubfield,
+	num(Replace(Longitud,'.',',')) as longitud_t_bcn,
+    num(Replace(Latitud,'.',',')) as latitud_t_bcn,
+    GeoMakePoint((num(Replace(Latitud,'.',','))), (num(Replace(Longitud,'.',',')))) as Localizacion_medidor_trafico_bcn
+    
+FROM [lib://datos/Tráfico/Barcelona/para qlik/transit_relacio_trams_format_long.csv]
+(txt, utf8, embedded labels, delimiter is ',', msq);
+
+
+Relacion_Tramos_formato_largo:
+LOAD
+    id_Tramo,
+    Tram_Components,
+    Descripcion_Tramos_Bcn,   
+    SubField(DescripcioSubfield,'(',1) AS Grupo_Tramos_Bcn,
+	longitud_t_bcn,
+	latitud_t_bcn,
+	Localizacion_medidor_trafico_bcn
+    
+Resident Temp_Relacion_Tramos_formato_largo;
+drop table Temp_Relacion_Tramos_formato_largo;
+
+Trafico_bcn_18_19_20:
+LOAD
+    date(Fecha) as fecha,
+    idTram as id_Tramo,
+    if(IsNull(idTram),'Barcelona','Barcelona') as Ciudad_traficobcn,
+    num(Replace(Estado_Actual,'.',',')) as Estado_Trafico_Bcn
+FROM [lib://datos/Tráfico/Barcelona/para qlik/DatosEstadoTraficoBarcelona_media_idtram_dia_18_19_20.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+//Sección Datos contaminacion_temp
+// soruce https://aqicn.org/
+// creamos un campo id_csv para ligar el modelo con su geolocalizacion y concatenamos los csv en una tabla.
+//mas adelante filtramos los datos concatenados por fecha
+
+Temp_Tabla_datos_contaminacion:
+
+//datos bcn
+Load filename() as id_csv,
+    
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co 
+    
+        
+FROM [lib://datos/Contaminacion/datosContaminacionBarcelona/datosbarcelona_aqicn_org/barcelona-(eixample), catalunya, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq)
+;
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co
+    
+  
+FROM [lib://datos/Contaminacion/datosContaminacionBarcelona/datosbarcelona_aqicn_org/barcelona-(gràcia-st.gervasi), catalunya, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co
+    
+FROM [lib://datos/Contaminacion/datosContaminacionBarcelona/datosbarcelona_aqicn_org/barcelona-(palau reial), catalunya, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co
+    
+FROM [lib://datos/Contaminacion/datosContaminacionBarcelona/datosbarcelona_aqicn_org/barcelona-(parc vall d'hebrón), catalunya, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co
+    
+FROM [lib://datos/Contaminacion/datosContaminacionBarcelona/datosbarcelona_aqicn_org/barcelona-(poblenou), catalunya, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co
+    
+FROM [lib://datos/Contaminacion/datosContaminacionBarcelona/datosbarcelona_aqicn_org/barcelona,-catalunya, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co
+    
+FROM [lib://datos/Contaminacion/datosContaminacionBarcelona/datosbarcelona_aqicn_org/l'hospitalet-de llobregat, catalunya, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+     co
+    
+FROM [lib://datos/Contaminacion/datosContaminacionBarcelona/datosbarcelona_aqicn_org/sant-adrià de besòs, catalunya, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+//seguimos con datos madrid
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+     co,
+    pm25
+    
+FROM [lib://datos/Contaminacion/datosContaminacionMadrid/datosmadrid_aqicn_org/casa-de campo, madrid, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+     co,
+    pm25
+    
+FROM [lib://datos/Contaminacion/datosContaminacionMadrid/datosmadrid_aqicn_org/castellana,-madrid-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co,
+    pm25
+    
+FROM [lib://datos/Contaminacion/datosContaminacionMadrid/datosmadrid_aqicn_org/cuatro-caminos, madrid, spain-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co,
+    pm25
+    
+FROM [lib://datos/Contaminacion/datosContaminacionMadrid/datosmadrid_aqicn_org/fernandez-ladreda, madrid-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co,
+    pm25
+    
+FROM [lib://datos/Contaminacion/datosContaminacionMadrid/datosmadrid_aqicn_org/mendez-alvaro, madrid-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co,
+    pm25
+    
+FROM [lib://datos/Contaminacion/datosContaminacionMadrid/datosmadrid_aqicn_org/escuelas-aguirre, madrid-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co,
+    pm25
+    
+FROM [lib://datos/Contaminacion/datosContaminacionMadrid/datosmadrid_aqicn_org/madrid-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+
+Load filename() as id_csv,
+    Date#("date",'YYYY-M-DD') AS fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co,
+    pm25
+    
+FROM [lib://datos/Contaminacion/datosContaminacionMadrid/datosmadrid_aqicn_org/plaza-de castilla, madrid-air-quality.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+//Sección Datos contaminacion
+NOCONCATENATE
+Temp2_Datos_contaminacion:
+Load 
+	id_csv,
+    fecha,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co,
+    pm25,
+    SubField(fecha,'/',1) AS Year_test,
+    SubField(fecha,'/',2) AS month_test,
+    SubField(fecha,'/',3) AS day_test,
+//Aqi index  https://aqicn.org/   
+	rangemax(pm10,o3,no2,so2,co,pm25) as AQI.Index
+    
+Resident Temp_Tabla_datos_contaminacion
+WHERE WildMatch(fecha,'*2018*') or WildMatch(fecha,'*2019*')or WildMatch(fecha,'*2020*');
+Drop table Temp_Tabla_datos_contaminacion;
+
+NOCONCATENATE
+Datos_contaminacion:
+Load 
+	id_csv,
+    pm10,
+    o3,
+    no2,
+    so2,
+    co,
+    pm25,
+	MakeDate(Year_test, month_test, day_test) as fecha,
+    AQI.Index,
+//Aqi index into buckets acording ICA ranges https://aqicn.org/    
+    If(AQI.Index <=50,Dual('Buena', 1),If(AQI.Index > 50 and AQI.Index <= 100, Dual('Moderada', 2),If(AQI.Index > 100 and AQI.Index <= 150, Dual('Dañina a la salud de los grupos Sensibles', 3),If(AQI.Index > 151 and AQI.Index <= 200, Dual('Dañina a la salud', 4),If(AQI.Index > 200 and AQI.Index < 300, Dual('Muy dañina a la salud', 5),If(AQI.Index >= 300, Dual('Arriesgado', 6))))))) AS [AQIIndex en Cestas.Buckets]    
+Resident Temp2_Datos_contaminacion;
+Drop table Temp2_Datos_contaminacion;
+
+//geo contaminacion
+geo_aqi_points:
+LOAD
+    Ciudad,
+    id_csv,
+    "nombre punto" as [Nombre Zona AQI],
+    num(Replace(latitud,'.',',')) as latidud_aqi_point,
+    num(Replace(longitud,'.',',')) as longitud_aqi_point,
+    GeoMakePoint(num(Replace(latitud,'.',',')),num(Replace(longitud,'.',','))) as Localizacion_AQI_point
+FROM [lib://datos/visualizaciones qlik/Geo_puntos_AQI/geopoints_csv_aqi.xlsx]
+(ooxml, embedded labels, table is geo_aqi_points);
+
+//Sección Meteo_Madrid & bcn
+temp_Datos_Meteo:
+//Madrid 18+19
+LOAD
+    fecha,
+    indicativo,
+    provincia,
+    altitud,
+    tmed,
+    prec,
+    tmin,
+    tmax,
+    dir,
+    velmedia,
+    racha,
+    sol,
+    presmax,
+    presmin
+FROM [lib://datos/Meteorologia/df_sinhoras_estacion_datos_diarios_mad.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+//Madrid 2020
+Concatenate
+
+LOAD
+    fecha,
+    indicativo,
+    provincia,
+    altitud,
+    tmed,
+    prec,
+    tmin,
+    tmax,
+    dir,
+    velmedia,
+    racha,
+    sol,
+    presmax,
+    presmin
+FROM [lib://datos/Meteorologia/df_sinhoras_estacion_datos_diarios_mad_2020.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+
+Concatenate
+//Bcn 18+19
+
+LOAD
+    fecha,
+    indicativo,
+    provincia,
+    altitud,
+    tmed,
+    prec,
+    tmin,
+    tmax,
+    dir,
+    velmedia,
+    racha,
+    sol,
+    presmax,
+    presmin
+FROM [lib://datos/Meteorologia/df_sinhoras_estacion_datos_diarios_bcn.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+//Bcn 2020
+Concatenate
+LOAD
+    fecha,
+    indicativo,
+    provincia,
+    altitud,
+    tmed,
+    prec,
+    tmin,
+    tmax,
+    dir,
+    velmedia,
+    racha,
+    sol,
+    presmax,
+    presmin
+FROM [lib://datos/Meteorologia/df_sinhoras_estacion_datos_diarios_bcn_2020.csv]
+(txt, codepage is 28591, embedded labels, delimiter is ',', msq);
+NoConcatenate
+
+Datos_Meteo:
+LOAD
+    fecha,
+    indicativo,
+    provincia,
+    num(Replace(altitud,'.',',')) as altitud,
+    num(Replace(tmed,'.',',')) as tmed,
+    num(Replace(prec,'.',',')) as prec,
+    num(Replace(tmin,'.',',')) as tmin,
+    num(Replace(tmax,'.',',')) as tmax,
+    num(Replace(dir,'.',',')) as dir,
+    num(Replace(velmedia,'.',',')) as velmedia,
+    num(Replace(racha,'.',',')) as racha,
+    num(Replace(sol,'.',',')) as sol,
+    num(Replace(presmax,'.',',')) as presmax,
+    num(Replace(presmin,'.',',')) as presmin
+
+Resident temp_Datos_Meteo;
+
+drop table temp_Datos_Meteo;
+
+// Sección Geo_meteo
+temp_Geo_meteo1:
+LOAD
+    indicativo,
+    nombre as [Nombre Estacion Meteo],
+    indsinop,
+    latitud as latitud_meteo1,
+    longitud as longitud_meteo1,
+    (left(latitud,2)) as lat_degrees,
+    ((mid(latitud,3,2))/60) as lat_seconds1,
+    ((mid(latitud,5,2))/3600) as lat_seconds2,
+    (if((right(longitud,1))='E',1,-1)) as longplusminus,
+    (left(longitud,2)) as long_degrees,
+    ((mid(longitud,3,2))/60) as long_seconds1,
+    ((mid(longitud,5,2))/3600) as long_seconds2
+FROM [lib://datos/Meteorologia/para qlik/mad_bcn_estaciones.csv]
+(txt, utf8, embedded labels, delimiter is ',', msq);
+
+NoConcatenate
+temp_Geo_meteo2:
+LOAD
+    indicativo,
+    [Nombre Estacion Meteo],
+    indsinop,
+    latitud_meteo1,
+    longitud_meteo1,
+    lat_degrees,
+    lat_seconds1,
+   	lat_seconds2,
+    longplusminus,
+    long_degrees,
+    long_seconds1,
+    long_seconds2,
+    (lat_degrees+lat_seconds1+lat_seconds2) as Latitud_meteo,
+    (longplusminus*(long_degrees+long_seconds1+long_seconds2))as Longitud_meteo
+
+Resident temp_Geo_meteo1;
+
+
+
+NoConcatenate
+Geo_meteo:
+
+LOAD
+    indicativo,
+    [Nombre Estacion Meteo],
+    indsinop,
+    Latitud_meteo,
+    Longitud_meteo,
+    GeoMakePoint(num(Replace(Latitud_meteo,'.',',')),num(Replace(Longitud_meteo,'.',','))) as Localizacion_Meteo_point
+ 
+Resident temp_Geo_meteo2;
+
+drop table temp_Geo_meteo1;
+drop table temp_Geo_meteo2;
+
+
+//Seccion master calendar
+QuartersMap:  
+MAPPING LOAD   
+rowno() as Month,  
+'Q' & Ceil (rowno()/3) as Quarter  
+AUTOGENERATE (12);  
+  
+Temp:  
+Load  
+               min(fecha)as minDate,  
+               max(fecha) as maxDate  
+Resident Trafico_madrid_18_19_20;  
+  
+Let varMinDate = Num(Peek('minDate', 0, 'Temp'));  
+Let varMaxDate = Num(Peek('maxDate', 0, 'Temp'));  
+DROP Table Temp;  
+  
+TempCalendar:  
+LOAD  
+               $(varMinDate) + Iterno()-1 As Num,  
+               Date($(varMinDate) + IterNo() - 1) as TempDate  
+               AutoGenerate 1 While $(varMinDate) + IterNo() -1 <= $(varMaxDate);  
+  
+MasterCalendar:  
+Load  
+         TempDate AS fecha,  
+
+		//WEEK
+         week(TempDate) As Week,  
+         Week(weekstart(TempDate)) & '-' & WeekYear(TempDate) as WeekYear,  
+         WeekDay(TempDate) as WeekDay,
+               
+
+        // YEAR
+        Year(TempDate) as Year,
+        YeartoDate(TempDate)*-1 as CurYTDFlag,  
+        YeartoDate(TempDate,-1)*-1 as LastYTDFlag,  
+        inyear(TempDate, Monthstart($(varMaxDate)),-1) as RC12,
+        InYear(TempDate,$(varMaxDate),0)*-1 AS _InCurrentYear,
+        InYear(TempDate,$(varMaxDate),-1)*-1 AS _InLastYear,
+        InYearToDate(TempDate,$(varMaxDate),0)*-1 AS _InCurrentYTD,
+        InYearToDate(TempDate,$(varMaxDate),-1)*-1 AS _InLastYTD,
+        If(DayNumberOfYear(TempDate)<=DayNumberOfYear($(varMaxDate)),1,0) AS _InAnyYTD,
+
+
+        // QUARTER
+        ApplyMap('QuartersMap', month(TempDate), Null()) as Quarter,
+        InQuarterToDate(TempDate,$(varMaxDate),0)*-1 AS _InCurrentQTD,
+        InQuarterToDate(TempDate,$(varMaxDate),-4)*-1 AS _InLastYearQTD,
+        InQuarter(TempDate,$(varMaxDate),0)*-1 AS _InCurrentQuarter,
+        InQuarter(TempDate,$(varMaxDate),4)*-1 AS _InLastYearCurrentQuarter,
+        If(InQuarter(TempDate,$(varMaxDate),-1) AND DayNumberOfQuarter(TempDate)<=DayNumberOfQuarter($(varMaxDate)),1,0) AS _InPriorQTD,
+        InQuarter(TempDate,$(varMaxDate),-1)*-1 AS _InPriorQuarter,
+
+
+        // MONTH
+         date(monthstart(TempDate), 'MMM-YYYY') as MonthYear, 
+        Month(TempDate) as Month,        
+        
+       
+        Num(Month(TempDate)) AS _MonthNum,
+        If(InMonth(TempDate,$(varMaxDate),0) AND TempDate <= Date($(varMaxDate)),1,0) AS _InCurrentMTD,
+        InMonth(TempDate,$(varMaxDate),0)*-1 AS _InCurrentMonth,
+        If(InMonthToDate(TempDate,$(varMaxDate),-1),1,0) AS _InPriorMTD,
+        If(InMonth(TempDate,$(varMaxDate),-1),1,0) AS _InPriorMonth,
+        If(InMonthtoDate(TempDate,$(varMaxDate),-12),1,0) AS _InLastYearMTD,
+        AutoNumber((Month(TempDate)) & (Year(TempDate)),'MonthCounter') AS MonthID,
+        AutoNumber(Ceil((Month(TempDate))/3) & (Year(TempDate)),'QuarterCounter') AS QuarterID,
+
+        // ROLLING MONTHS
+        If( TempDate > addmonths($(varMaxDate),-12) and TempDate <= $(varMaxDate),1) as _Rolling12, 
+        If( TempDate > addmonths($(varMaxDate),-2) and TempDate <= $(varMaxDate),1) as _Rolling2, 
+        If( TempDate > addmonths($(varMaxDate),-3) and TempDate <= $(varMaxDate),1) as _Rolling3, 
+        If( TempDate > addmonths($(varMaxDate),-6) and TempDate <= $(varMaxDate),1) as _Rolling6, 
+        If( TempDate > addmonths($(varMaxDate),-24) and TempDate <= addmonths($(varMaxDate),-12),1) as _Rolling13to24,
+        
+		//SEASON
+
+		(If(WildMatch(Month(TempDate),'*dic*','*ene*','*feb*'),'Invierno',(If(WildMatch((Month(TempDate)),'*mar*','*abr*','*may*'),'Primavera',(If(WildMatch((Month(TempDate)),'*jun*','*jul*','*ago*'),'Verano','Otoño')))))) as Season,
+
+		//WeekDay_type
+        (If(WildMatch(weekday(TempDate),'*sáb.*','*dom.*'),'Weekend','Working day')) as WeekDay_type
+
+        
+        
+Resident TempCalendar  
+Order By TempDate ASC;
+Drop Table TempCalendar;
+    
+
+
+
+
+
+
+
+
+
+
+

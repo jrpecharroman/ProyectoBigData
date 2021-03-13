@@ -38,6 +38,18 @@ El repositorio del proyecto consta de las siguientes carpetas:
 
 - **Predicciones_sobre_2020**: Aplicación de los modelos obtenidos en la predicción sobre datos del 2020. Contiene:
 	- los Notebooks con las predicciones
+	
+- **Visualizaciones Qlik**: Archivos necesarios para la poder instalar la aplicación de BI diseñada para el proyecto basada en Qlik Sense:
+	- AirQ - Madrid y Barcelona Ciudad.qvf
+	- Carpeta con las extensiones necesarias a instalar.
+	- Scripts utilizados en la carga de datos para generar el modelo de análisis. 
+	- Carpeta con imágenes fijas y gifs a modo de ejemplos visuales de los dashboards diseñados.
+	- Carpeta con los datos de las Geolocalizaciones creadas para las estaciones AQI.
+	- Carpeta otros con archivos de diseño para la escala de colores de AQI
+
+- **Recursos**: Contiene algunos recursos externos utilizados en el proyecto:
+	- Acceso a [diagrama de las fuentes y tecnologias utilizadas en el proyecto ](https://app.terrastruct.com/diagrams/780713555)
+	- Copia [librería aemet para python](https://github.com/pablo-moreno/python-aemet)
 
 
 ## Instalación
@@ -164,21 +176,25 @@ Para el desarrollo del proyecto deberán ejecutarse los Notebooks en el siguient
 
 ## Visualizaciones
 
-- Para el apartado de visualizaciones se ha desarrollado una aplicación en Qlik Sense.
+- Para el apartado de visualizaciones se ha desarrollado una aplicación en Qlik Sense. Para desplegar la aplicación AirQ - Madrid y Barcelona ciudad será es necesario:
 
-- Para desplegar la aplicacion AirQ - Madrid y Barcelona ciudad primero es necesario importar los zips incluidos en la carpeta del repositorio ProyectoBigData\visualizaciones qlik\Extensions\ en el apartado extensions del servidor qlik o bien guardarlos en la carpeta extensions de la instalación de Qlik Sense desktop. 
-Habitualmente C:\Users\[usuario]\Documents\Qlik\Sense\Extensions
+**1.** Disponer de una instalacion Qlik Sense.
 
-- Es necesario importar la aplicación (AirQ - Madrid y Barcelona Ciudad.qvf. Podran encontrar el archivo en la carpeta de repositorio ProyectoBigData\visualizaciones qlik\ en el apartado en Apps del servidor Qlik o bien guardarlos en la carpeta Apps de la instalación de Qlik sense desktop. 
-Habitualmente C:\Users\[usuario]\Documents\Qlik\Sense\Apps
+**2.** Importar los zips incluidos en la carpeta del repositorio ProyectoBigData\visualizaciones qlik\Extensions\ en el apartado extensions del servidor qlik o bien extraerlos como subcarpetas dentro de la carpeta "extensions" si se trata una instalación de Qlik Sense Desktop. La carpeta habitualmente se ubica en la siguiente ruta:
+		
+		C:\Users\[usuario]\Documents\Qlik\Sense\Extensions
 
-- La App AirQ fue diseñada con Qlik Sense desktop September 2020 y es possible que algunos botones del dashboard de introducción necesitan objetos de esta versión, alternativamente se puede desplegar en una versión anterior y utilizar los botones incluidos como extensión en el qlik sense dashboard bundle.
+**3.** Importar la aplicación AirQ - Madrid y Barcelona Ciudad.qvf ( archivo el cual podran encontrar en la carpeta del repositorio 		ProyectoBigData\visualizaciones qlik\ ) y moverlo en el apartado en Apps del servidor Qlik o bien guardarlo en la carpeta "Apps" si se dispone de una instalación de Qlik Sense Desktop Desktop la cual habitualmente se ubica en la siguiente ruta:. 
+
+		C:\Users\[usuario]\Documents\Qlik\Sense\Apps
+
+**4.** La App AirQ fue diseñada con Qlik Sense desktop September 2020 y es possible que algunos botones del dashboard de introducción necesitan objetos de esta versión, alternativamente se puede desplegar en una versión anterior y utilizar los botones incluidos como extensión en el "Qlik Sense Dashboard Bundle".
 
 ![imagen](https://user-images.githubusercontent.com/74833588/110533306-208c4e00-811e-11eb-9d79-839e0e3e5342.png)
 
-- Si fuera el caso los 4 botones de navegación a sustituir son los siguientes: 
+   	>Si fuera el caso los 4 botones de navegación a sustituir son los siguientes: 
 
-	- Analisis conjunto = id hoja = 54fd9c26-c153-4ba6-97db-ac2dfe4ffb62
-	- Mapa = id hoja = c6f9e8a4-7a1f-412d-98e7-d6bf55fd5034
-	- Estado actual por ciudad = id hoja = 994185d4-a366-467a-80b3-2cd4b7bc5ebe
-	- Analisis conjunto = id hoja = 1d685140-b35d-499f-b212-aa077df844fe
+	   > Analisis conjunto = id hoja = 54fd9c26-c153-4ba6-97db-ac2dfe4ffb62
+	   > Mapa = id hoja = c6f9e8a4-7a1f-412d-98e7-d6bf55fd5034
+	   > Estado actual por ciudad = id hoja = 994185d4-a366-467a-80b3-2cd4b7bc5ebe
+	   > Analisis conjunto = id hoja = 1d685140-b35d-499f-b212-aa077df844fe
