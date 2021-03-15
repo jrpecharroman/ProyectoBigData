@@ -71,76 +71,80 @@ Puede ubicar la carpeta ProyectoBigData en cualquier ruta de su equipo.
 
 ## Ejecución
 
-Para el desarrollo del proyecto deberán ejecutarse los Notebooks en el siguiente orden: 
+Puede ejecutarse cualquier Notebook en cualquier momento, dado que los ficheros de salida ya están generados.
+
+Para una ejecuación completa del proyecto deberán ejecutarse los Notebooks en el siguiente orden: 
 > Puede ejecutarse de forma independiente todo lo relacionado con Madrid y todo lo relacionado con Barcelona
+
+> Los tiempos indicados se han obtenido al ejecutar los Notebooks en un equipo con procesador Intel Core i7 10510U y 16 GB de RAM. Aquellos que descargan datos de internet dependen de la velocidad de conexión, por lo que pueden variar sensiblemente en función del ancho de banda disponible.
 
 ### Madrid: modelado desde datos 2018-2019
 
-1. ProyectoBigData \ Contaminacion \ datosContaminacionMadrid \ JupiterNoteBook \ **DatosCalidadMadrid-2018-2019.ipynb**
+1. (1 min) ProyectoBigData \ Contaminacion \ datosContaminacionMadrid \ JupiterNoteBook \ **DatosCalidadMadrid-2018-2019.ipynb**
 
    > generará el fichero 'contaminacionMadrid2018_2019.csv' en la misma carpeta
 
-2. ProyectoBigData \ Meteorologia \ **ConsultasAemet - mad 18-19.ipynb**
+2. (5 min) ProyectoBigData \ Meteorologia \ **ConsultasAemet - mad 18-19.ipynb**
 
    > generará el fichero 'df_sinhoras_estacion_datos_diarios_mad.csv' en la misma carpeta
 
-3. ProyectoBigData \ Tráfico \ Madrid \ **DatosTráficoMadrid_18_19.ipynb**
+3. (17 min) ProyectoBigData \ Tráfico \ Madrid \ **DatosTráficoMadrid_18_19.ipynb**
 
    > generará el fichero 'trafico_mad.csv' en la misma carpeta
 
-4. ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **AnalisisConjunto_Mad.ipynb**
+4. (6,75 min) ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **AnalisisConjunto_Mad.ipynb**
 
    > generará en la misma carpeta los ficheros:  
    > 'DatosMergeadosMadrid.csv'  
    > 'DatosMergeadosMadrid_ConSeleccionCaract.csv' y  
    > 'DatosMergeadosMadrid_ConSeleccionCaract_PCA.csv' 
 
-5. ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **ModelosPredictivosMadrid_SinSeleccionCaract_PM10.ipynb**
+5. (3 min) ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **ModelosPredictivosMadrid_SinSeleccionCaract_PM10.ipynb**
 
    > generará el fichero 'Modelo_finalizado_MadridPM10.sav' en la misma carpeta
  
-6. ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **ModelosPredictivosMadrid-ConSeleccionCaracterísticas_PCA_PM10.ipynb**
+6. (1,75 min) ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **ModelosPredictivosMadrid-ConSeleccionCaracterísticas_PCA_PM10.ipynb**
 
-7. ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **ModelosPredictivosMadrid-ConSeleccionCaracterísticas_PM10.ipynb**
+7. (2,25 min) ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **ModelosPredictivosMadrid-ConSeleccionCaracterísticas_PM10.ipynb**
 
-8. ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **ModelosPredictivosMadrid_SinSeleccionCaract_NO2.ipynb**
+8. (2 min) ProyectoBigData \ AnalisisConjunto_Modelados \ Madrid \ **ModelosPredictivosMadrid_SinSeleccionCaract_NO2.ipynb**
 
    > generará el fichero 'Modelo_finalizado_MadridNO2.sav' en la misma carpeta
 
 ### Madrid: aplicación predicciones sobre datos del 2020
 
-9. ProyectoBigData \ Contaminacion \ datosContaminacionMadrid \ JupiterNoteBook \ **DatosCalidadMadrid-2020.ipynb**
+9. (1 min) ProyectoBigData \ Contaminacion \ datosContaminacionMadrid \ JupiterNoteBook \ **DatosCalidadMadrid-2020.ipynb**
 
    > generará el fichero 'contaminacionMadrid2020.csv' en la misma carpeta
 
-10. ProyectoBigData \ Meteorologia \ **ConsultasAemet - mad 20.ipynb**
+10. (5 min) ProyectoBigData \ Meteorologia \ **ConsultasAemet - mad 20.ipynb**
 
     > generará el fichero 'df_sinhoras_estacion_datos_diarios_mad_2020.csv' en la misma carpeta
 
-11. ProyectoBigData \ Tráfico \ Madrid \ **DatosTráficoMadrid_2020.ipynb**
+11. (8,5 min) ProyectoBigData \ Tráfico \ Madrid \ **DatosTráficoMadrid_2020.ipynb**
 
     > generará el fichero 'trafico_mad_2020.csv' en la misma carpeta
 
-12. ProyectoBigData \ Predicciones_sobre_2020 \ **PrediccionesMadridPM10_2020.ipynb**
+12. (3 seg) ProyectoBigData \ Predicciones_sobre_2020 \ **PrediccionesMadridPM10_2020.ipynb**
 
-13. ProyectoBigData \ Predicciones_sobre_2020 \ **PrediccionesMadridNO2_2020.ipynb**
+13. (3 seg) ProyectoBigData \ Predicciones_sobre_2020 \ **PrediccionesMadridNO2_2020.ipynb**
 
 
 ### Barcelona: modelado desde datos 2018-2019
 
-1. ProyectoBigData \ Contaminacion \ datosContaminacionBarcelona \ JupiterNoteBook \ **DatosCalidadBarcelona.ipynb**
+1. (15 seg) ProyectoBigData \ Contaminacion \ datosContaminacionBarcelona \ JupiterNoteBook \ **DatosCalidadBarcelona.ipynb**
 
    > generará el fichero 'contaminacionBarcelona2018_2019.csv' en la misma carpeta
 
-2. ProyectoBigData \ Meteorologia \ **ConsultasAemet - bcn 18-19-sin estacion fabra.ipynb**
+2. (5,25 min) ProyectoBigData \ Meteorologia \ **ConsultasAemet - bcn 18-19-sin estacion fabra.ipynb**
 
    > generará el fichero 'df_sinhoras_estacion_datos_diarios_bcn.csv' en la misma carpeta
 
-3. ProyectoBigData \ Tráfico \ Barcelona \ **DatosTráficoBarcelona_18_19.ipynb**
+3. (6 min) ProyectoBigData \ Tráfico \ Barcelona \ **DatosTráficoBarcelona_18_19.ipynb**
 
    > generará los ficheros 'DatosEstadoTraficoBarcelona.csv' y 'DatosEstadoTraficoBarcelona_SinMadrugadas.csv' en la misma carpeta
 
-4. ProyectoBigData \ AnalisisConjunto_Modelados \ Barcelona \ **AnalisisConjuntoBarcelona.ipynb**
+4. (3,25 min) ProyectoBigData \ AnalisisConjunto_Modelados \ Barcelona \ **AnalisisConjuntoBarcelona.ipynb**
 
    > generará en la misma carpeta los ficheros:  
    > 'DatosMergeadosBarcelona.csv'  
@@ -148,32 +152,32 @@ Para el desarrollo del proyecto deberán ejecutarse los Notebooks en el siguient
    > 'DatosMergeadosBarcelona_ConSeleccionCaract_ParaNO2.csv' y  
    > 'DatosMergeadosBarcelona_ConSeleccionCaract_PCA.csv' 
 
-5. ProyectoBigData \ AnalisisConjunto_Modelados \ Barcelona \ **ModeloBarcelonaPM10.ipynb**
+5. (7 min) ProyectoBigData \ AnalisisConjunto_Modelados \ Barcelona \ **ModeloBarcelonaPM10.ipynb**
 
    > generará el fichero 'Modelo_finalizado_BarcelonaPM10.sav' en la misma carpeta
 >>>>>>> dev
  
-6. ProyectoBigData \ AnalisisConjunto_Modelados \ Barcelona \ **ModeloBarcelonaNO2.ipynb**
+6. (7 min) ProyectoBigData \ AnalisisConjunto_Modelados \ Barcelona \ **ModeloBarcelonaNO2.ipynb**
 
    > generará el fichero 'Modelo_finalizado_BarcelonaNO2.sav' en la misma carpeta
 
 ### Barcelona: aplicación predicciones sobre datos del 2020
 
-7. ProyectoBigData \ Contaminacion \ datosContaminacionBarcelona \ JupiterNoteBook \ **DatosCalidadBarcelona-2020.ipynb**
+7. (7 seg) ProyectoBigData \ Contaminacion \ datosContaminacionBarcelona \ JupiterNoteBook \ **DatosCalidadBarcelona-2020.ipynb**
 
    > generará el fichero 'contaminacionBarcelona2020.csv' en la misma carpeta
 
-8. ProyectoBigData \ Meteorologia \ **ConsultasAemet - bcn-2020-sin estacion fabra.ipynb**
+8. (1,5 min) ProyectoBigData \ Meteorologia \ **ConsultasAemet - bcn-2020-sin estacion fabra.ipynb**
 
     > generará el fichero 'df_sinhoras_estacion_datos_diarios_bcn_2020.csv' en la misma carpeta
 
-9. ProyectoBigData \ Tráfico \ Barcelona \ **DatosTraficoBarcelona_2020.ipynb**
+9. (6 min) ProyectoBigData \ Tráfico \ Barcelona \ **DatosTraficoBarcelona_2020.ipynb**
 
    > generará los ficheros 'DatosEstadoTraficoBarcelona_2020.csv' y 'DatosEstadoTraficoBarcelona_SinMadrugadas_2020.csv' en la misma carpeta
 
-10. ProyectoBigData \ Predicciones_sobre_2020 \ **PrediccionesBarcelonaPM10_2020.ipynb**
+10. (3 seg) ProyectoBigData \ Predicciones_sobre_2020 \ **PrediccionesBarcelonaPM10_2020.ipynb**
 
-11. ProyectoBigData \ Predicciones_sobre_2020 \ **PrediccionesBarcelonaNO2_2020.ipynb**
+11. (3 seg) ProyectoBigData \ Predicciones_sobre_2020 \ **PrediccionesBarcelonaNO2_2020.ipynb**
 
 ## Visualizaciones
 
