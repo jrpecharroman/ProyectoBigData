@@ -8,6 +8,8 @@ El presente proyecto tiene como objetivo analizar la calidad del aire en dos ciu
 - Usando datos de los años 2018 y 2019 se obtiene un modelo de predicción listo para aplicar sobre nuevos datos.
 - Se aplica sobre los datos del 2020 y se compara con las mediciones reales.
 
+El proyecto está publicado en la rama main del repositorio Github https://github.com/jrpecharroman/ProyectoBigData
+
 ## Contenido
 
 El repositorio del proyecto consta de las siguientes carpetas:
